@@ -1,17 +1,17 @@
-// src/router/index.js
+
 import { createRouter, createWebHistory } from 'vue-router'
 import home from '../halaman/home.vue'
-import Login from '../halaman/Login.vue'
-import NotFound from '../halaman/NotFound.vue'
-import Pemesanan from '../halaman/Pemesanan.vue'
-import Contact from '../halaman/Contact.vue'
+import login from '../halaman/Login.vue'
+import notfound from '../halaman/notfound.vue'
+import pemesanan from '../halaman/pemesanan.vue'
+import contact from '../halaman/contact.vue'
 
 const routes = [
   { path: '/', component: home },
-  { path: '/login', component: Login },
-  { path: '/pemesanan', component: Pemesanan },
-  { path: '/contact', component: Contact },
-  { path: '/:pathMatch(.*)*', component: NotFound } // wildcard (404)
+  { path: '/login', component: login },
+  { path: '/pemesanan', component: pemesanan },
+  { path: '/contact', component: contact },
+  { path: '/:pathMatch(.*)*', component: notfound } 
 ]
 
 const router = createRouter({
