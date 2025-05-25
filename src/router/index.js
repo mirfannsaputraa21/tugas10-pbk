@@ -1,7 +1,7 @@
 
 import { createRouter, createWebHistory } from 'vue-router'
 import home from '../halaman/home.vue'
-import login from '../halaman/Login.vue'
+import login from '../halaman/login.vue'
 import notfound from '../halaman/notfound.vue'
 import pemesanan from '../halaman/pemesanan.vue'
 import contact from '../halaman/contact.vue'
