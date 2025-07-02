@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { useAuthStore } from './stores/authStore'; // 1. Import store autentikasi
+import { useAuthStore } from './stores/authstore'; // 1. Import store autentikasi
 import { onMounted } from 'vue';
 
 // 2. Inisialisasi store
