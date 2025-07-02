@@ -9,6 +9,7 @@ export const useAuthStore = defineStore('auth', {
     isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
     user: JSON.parse(localStorage.getItem('user')) || null,
   }),
+  
   actions: {
     async login(credentials) {
       try {

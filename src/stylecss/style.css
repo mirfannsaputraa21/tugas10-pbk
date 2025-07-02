@@ -1,556 +1,805 @@
-/* General Body & HTML Styling */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap');
+
+/* Reset dan Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --secondary-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  --accent-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --danger-gradient: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
+  --warning-gradient: linear-gradient(135deg, #fdbb2d 0%, #22c1c3 100%);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+  --shadow-hover: 0 15px 40px rgba(31, 38, 135, 0.5);
+  --border-radius: 20px;
+  --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f7f6;
-    color: #333;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  min-height: 100vh;
+  color: #333;
+  overflow-x: hidden;
 }
 
-h1 {
-    text-align: center;
-    color: #2c3e50;
-    margin-bottom: 2rem;
-    padding-top: 1.5rem;
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* --- Login Component Styles --- */
+/* Decorative Background Elements */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: var(--glass-bg);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+  z-index: -1;
+  animation: float 6s ease-in-out infinite;
+}
+
+body::before {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+body::after {
+  bottom: 10%;
+  right: 10%;
+  animation-delay: 3s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* === LOGIN PAGE STYLES === */
 .login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative; /* Penting untuk overlay */
-    overflow: hidden;   /* Pastikan tidak ada scrollbar tak terduga */
-
-    /* --- PILIHAN KUSTOMISASI BACKGROUND LOGIN --- */
-
-    /* OPSI 1: Background Gambar (Paling Sering Digunakan) */
-    /* Ganti URL gambar di bawah dengan gambar Anda sendiri (lokal atau online langsung). */
-    /* Contoh gambar lokal, sesuaikan jalur jika folder gambar Anda berbeda */
-    background-image: url('../assets/image/4ed76e082f55f3dbedfcc298a4022276.png'); /* Contoh gambar yang Anda berikan */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Gambar tetap di tempat saat scroll */
-
-    /* OPSI 2: Background Gradien (Uncomment jika ingin menggunakan ini) */
-    /*
-    background: linear-gradient(135deg, #1abc9c 0%, #2ecc71 100%);
-    */
-
-    /* OPSI 3: Background Pola (Uncomment jika ingin menggunakan ini) */
-    /*
-    background-image: url('https://www.transparenttextures.com/patterns/clean-textile.png');
-    background-repeat: repeat;
-    background-color: #f0f2f5;
-    */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
 }
 
-/* Overlay (Opsional): Untuk membuat teks/kotak login lebih mudah dibaca di atas gambar yang ramai */
-/* Uncomment blok ini jika Anda menggunakan gambar dan perlu meningkatkan kontras */
 .login-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4); /* Lapisan gelap transparan */
-    z-index: 1; /* Pastikan overlay di bawah konten login-box */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+  z-index: -1;
 }
 
 .login-box {
-    background: #ffffff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 420px;
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-    position: relative; /* Penting agar z-index bekerja dengan benar */
-    z-index: 2; /* Pastikan di atas overlay */
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius);
+  padding: 50px 40px;
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--glass-border);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  transform: translateY(0);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.login-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.login-box:hover::before {
+  left: 100%;
 }
 
 .login-box:hover {
-    transform: translateY(-5px);
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-hover);
 }
 
 .login-box h1 {
-    color: #34495e;
-    margin-bottom: 1rem; /* Kurangi margin bawah */
-    font-size: 2.2rem;
-    font-weight: 600;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 15px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .login-box p {
-    color: #666; /* Warna abu-abu untuk teks informasi */
-    margin-bottom: 0.5rem; /* Kurangi jarak antar paragraf */
-    font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 15px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+  font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(5px);
 }
 
 .input-group {
-    margin-bottom: 1.5rem;
-    text-align: left;
+  margin-bottom: 25px;
+  text-align: left;
+  position: relative;
 }
 
 .input-group label {
-    display: block;
-    margin-bottom: 0.6rem;
-    color: #555;
-    font-weight: 500;
-    font-size: 0.95rem;
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
 }
 
-.input-group input[type="text"],
-.input-group input[type="password"] {
-    width: 100%;
-    padding: 1rem 1.2rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: #333;
-    background-color: #f9f9f9;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+.input-group input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  font-size: 16px;
+  transition: var(--transition);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-family: 'Inter', sans-serif;
 }
 
-.input-group input[type="text"]:focus,
-.input-group input[type="password"]:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-    outline: none;
+.input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.login-box button[type="submit"] {
-    width: 100%;
-    padding: 1.2rem;
-    border: none;
-    background-color: #3498db;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    letter-spacing: 0.5px;
+.input-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
 }
 
-.login-box button[type="submit"]:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
+.login-box button {
+  background: var(--primary-gradient);
+  color: white;
+  border: none;
+  padding: 16px 35px;
+  border-radius: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: var(--transition);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.login-box button[type="submit"]:active {
-    transform: translateY(0);
+.login-box button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
 }
 
-
-/* --- Table (Daftar Bahan) Styles --- */
-table {
-    width: 90%;
-    margin: 2rem auto;
-    border-collapse: collapse;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden; /* Ensures rounded corners apply to content */
+.login-box button:hover::before {
+  left: 100%;
 }
 
-th, td {
-    padding: 15px 20px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+.login-box button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
 
-thead th {
-    background-color: #3498db;
-    color: white;
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-    background-color: #f1f8ff;
-    transition: background-color 0.2s ease;
-}
-
-td input[type="text"],
-td input[type="number"],
-tfoot input[type="text"],
-tfoot input[type="number"] {
-    width: calc(100% - 20px); /* Adjust for padding */
-    padding: 8px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 0.95rem;
-    box-sizing: border-box;
-}
-
-td input:focus,
-tfoot input:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-    outline: none;
-}
-
-button {
-    padding: 8px 15px;
-    margin-right: 8px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-button:last-child {
-    margin-right: 0;
-}
-
-/* Specific button styles */
-button:not([type="submit"]) { /* Apply to all buttons except login submit */
-    background-color: #4CAF50; /* Default for action buttons */
-    color: white;
-}
-
-button:not([type="submit"]):hover {
-    background-color: #45a049;
-    transform: translateY(-1px);
-}
-
-/* Edit button */
-button[data-action="edit"] { /* You might need to add a data-action attribute in template */
-    background-color: #007bff;
-}
-button[data-action="edit"]:hover {
-    background-color: #0056b3;
-}
-
-/* Save button */
-/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-save">Simpan</button> */
-.btn-save {
-    background-color: #28a745;
-}
-.btn-save:hover {
-    background-color: #218838;
-}
-
-/* Cancel button */
-/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-cancel">Batal</button> */
-.btn-cancel {
-    background-color: #6c757d;
-}
-.btn-cancel:hover {
-    background-color: #5a6268;
-}
-
-/* Delete button */
-/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-delete">Hapus</button> */
-.btn-delete {
-    background-color: #dc3545;
-}
-.btn-delete:hover {
-    background-color: #c82333;
-}
-
-/* Add New Bahan button */
-/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-add">Tambah Data Baru</button> */
-.btn-add {
-    background-color: #007bff;
-    width: 100%;
-    padding: 10px 15px;
-    font-size: 1rem;
-    margin-right: 0; /* Remove right margin for full width */
-}
-.btn-add:hover {
-    background-color: #0056b3;
-}
-
-
-p {
-    text-align: center;
-    margin-top: 1.5rem;
-    font-size: 1.1rem;
-    color: #555;
-}
-
-/* Loading state */
-div[v-if="bahanStore.isLoading"] { /* Perhatikan: ini adalah selector atribut Vue, bukan class CSS murni */
-    text-align: center;
-    padding: 2rem;
-    font-size: 1.2rem;
-    color: #666;
-}
-
-/* --- App.vue Navbar Styles --- */
-header {
-    background-color: #2c3e50; /* Warna latar belakang gelap untuk header */
-    padding: 1rem 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sedikit bayangan untuk efek mengangkat */
-}
-
-/* Kontainer untuk judul dan nav */
-.navbar-content {
-    display: flex; /* Menggunakan Flexbox */
-    justify-content: space-between; /* Judul di kiri, nav di kanan (atau tengah tergantung nav) */
-    align-items: center; /* Pusatkan item secara vertikal */
-    max-width: 1200px; /* Batasi lebar */
-    margin: 0 auto; /* Pusatkan di halaman */
-    padding: 0 20px; /* Padding samping */
-}
-
-/* Gaya untuk judul di navbar */
-.navbar-title {
-    color: #ecf0f1; /* Warna teks putih keabu-abuan */
-    font-size: 1.5rem; /* Ukuran font lebih besar */
-    font-weight: 600; /* Tebal */
-    letter-spacing: 0.8px;
-    white-space: nowrap; /* Pastikan teks tidak patah baris */
-    margin-right: 2rem; /* Jarak dari nav */
-}
-
-nav {
-    display: flex; /* Menggunakan Flexbox untuk tata letak horizontal */
-    /* justify-content: center; <-- Hapus atau ubah ini jika nav punya lebar penuh */
-    gap: 2.5rem; /* Jarak antar link */
-    /* max-width: 1200px; <-- Hapus ini jika nav berada dalam navbar-content */
-    /* margin: 0 auto; <-- Hapus ini */
-    /* padding: 0 20px; <-- Hapus ini karena sudah ada di navbar-content */
-}
-
-/* Styling untuk RouterLink dan tag <a> (Logout link) */
-nav a {
-    color: #ecf0f1; /* Warna teks putih keabu-abuan */
-    text-decoration: none; /* Hapus garis bawah default */
-    font-size: 1.1rem; /* Ukuran font */
-    font-weight: 500; /* Ketebalan font */
-    padding: 0.5rem 1rem; /* Padding di sekitar teks link */
-    border-radius: 6px; /* Sudut membulat */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Transisi halus */
-}
-
-/* Efek saat link di-hover atau aktif */
-nav a:hover,
-nav a.router-link-active { /* router-link-active adalah class yang ditambahkan Vue Router */
-    background-color: #3498db; /* Warna latar belakang saat di-hover/aktif */
-    color: white; /* Warna teks putih */
-    transform: translateY(-2px); /* Efek sedikit terangkat */
-}
-
-nav a.router-link-exact-active { /* router-link-exact-active untuk link yang sangat cocok */
-    background-color: #2980b9; /* Warna latar belakang untuk link aktif yang tepat */
-    color: white;
-    font-weight: 600; /* Lebih tebal untuk link yang sangat aktif */
-}
-
-/* --- Dasboard Component Styles --- */
+/* === DASHBOARD PAGE STYLES === */
 .dashboard-container {
-    min-height: calc(100vh - 80px); /* Mengisi sebagian besar tinggi viewport, disesuaikan agar tidak tumpang tindih dengan navbar */
-    display: flex;
-    flex-direction: column; /* Konten diatur secara vertikal */
-    justify-content: center; /* Pusatkan konten vertikal */
-    align-items: center; /* Pusatkan konten horizontal */
-    text-align: center;
-    padding: 2rem;
-    color: #fff; /* Warna teks putih agar kontras dengan latar belakang gelap */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Bayangan teks agar lebih mudah dibaca */
-    position: relative; /* Penting untuk overlay */
-    overflow: hidden; /* Pastikan tidak ada scrollbar tak terduga dari gambar */
-
-
-    /* --- PILIHAN KUSTOMISASI BACKGROUND --- */
-
-    /* OPSI 1: Background Gambar (Paling Sering Digunakan) */
-    /* Ganti URL gambar di bawah dengan gambar Anda sendiri. */
-    /* Anda bisa menaruh gambar di folder src/assets/images/ */
-    background-image: url('../assets/image/4ed76e082f55f3dbedfcc298a4022276.png');
-    background-size: cover; /* Memastikan gambar menutupi seluruh area container */
-    background-position: center; /* Pusatkan gambar */
-    background-repeat: no-repeat; /* Gambar tidak diulang */
-    background-attachment: fixed; /* Gambar tetap di tempat saat halaman di-scroll */
-
-    /* OPSI 2: Background Gradien (Uncomment jika ingin menggunakan ini) */
-    /*
-    background: linear-gradient(135deg, #4CAF50 0%, #218838 100%);
-    */
-
-    /* OPSI 3: Background Pola (Uncomment jika ingin menggunakan ini) */
-    /* Anda bisa mencari pola gratis di transparenttextures.com atau thepatternlibrary.com */
-    /*
-    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-    background-repeat: repeat;
-    background-color: #f0f2f5;
-    */
+  min-height: 100vh;
+  padding: 60px 20px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
-/* Overlay (Opsional): Untuk membuat teks lebih mudah dibaca di atas gambar yang ramai */
-/* Uncomment blok ini jika Anda menggunakan gambar dan teks sulit dibaca */
-.dashboard-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.3); /* Lapisan gelap transparan */
-    z-index: 1; /* Pastikan overlay di bawah konten */
-}
-.dashboard-container > * { /* Targetkan elemen anak langsung agar berada di atas overlay */
-    position: relative;
-    z-index: 2;
-}
-
 
 .dashboard-container h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
-    color: #fff; /* Pastikan H1 juga berwarna putih */
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, #fff, #f8f9fa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 56px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: -1px;
+  line-height: 1.1;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 .dashboard-container p {
-    font-size: 1.5rem;
-    max-width: 800px;
-    line-height: 1.6;
-    color: #f0f0f0;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 20px;
+  font-weight: 300;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
 }
 
+/* === MAIN CONTENT CONTAINER === */
+.main-content {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
+  margin: 30px;
+  padding: 40px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
 
-/* Responsive design for smaller screens */
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-gradient);
+}
+
+/* === MAIN TITLE === */
+div > h1:first-child {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  position: relative;
+  letter-spacing: -0.5px;
+}
+
+div > h1:first-child::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--primary-gradient);
+  border-radius: 2px;
+}
+
+/* Loading State */
+div > div:contains("Memuat") {
+  text-align: center;
+  padding: 60px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  position: relative;
+}
+
+div > div:contains("Memuat")::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 20px auto 0;
+  display: block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* === TABLE STYLES === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Table Header */
+thead {
+  background: var(--dark-gradient);
+  position: relative;
+}
+
+thead::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary-gradient);
+}
+
+thead th {
+  color: white;
+  padding: 25px 20px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Table Body */
+tbody tr {
+  transition: var(--transition);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+tbody tr::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--primary-gradient);
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+}
+
+tbody tr:hover {
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+  transform: translateX(5px);
+}
+
+tbody tr:hover::before {
+  transform: scaleY(1);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(102, 126, 234, 0.02);
+}
+
+tbody td {
+  padding: 20px;
+  color: #2c3e50;
+  font-weight: 500;
+  vertical-align: middle;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Table Footer */
+tfoot {
+  background: var(--success-gradient);
+  position: relative;
+}
+
+tfoot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+tfoot td {
+  padding: 20px;
+}
+
+tfoot input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  transition: var(--transition);
+  font-family: 'Inter', sans-serif;
+  backdrop-filter: blur(5px);
+}
+
+tfoot input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.8);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+tfoot input::placeholder {
+  color: #95a5a6;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* === MODERN BUTTON STYLES === */
+button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin: 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+/* Edit Button */
+button:contains("Edit"), 
+tbody button:first-child {
+  background: var(--warning-gradient);
+  color: white;
+  box-shadow: 0 6px 20px rgba(253, 203, 110, 0.3);
+}
+
+button:contains("Edit"):hover,
+tbody button:first-child:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(253, 203, 110, 0.4);
+}
+
+/* Delete Button */
+button:contains("Hapus"),
+tbody button:last-child {
+  background: var(--danger-gradient);
+  color: white;
+  box-shadow: 0 6px 20px rgba(252, 70, 107, 0.3);
+}
+
+button:contains("Hapus"):hover,
+tbody button:last-child:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(252, 70, 107, 0.4);
+}
+
+/* Save Button */
+button:contains("Simpan") {
+  background: var(--success-gradient);
+  color: white;
+  box-shadow: 0 6px 20px rgba(17, 153, 142, 0.3);
+}
+
+button:contains("Simpan"):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
+}
+
+/* Cancel Button */
+button:contains("Batal") {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  color: white;
+  box-shadow: 0 6px 20px rgba(149, 165, 166, 0.3);
+}
+
+button:contains("Batal"):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(149, 165, 166, 0.4);
+}
+
+/* Add New Button */
+button:contains("Tambah Data Baru") {
+  background: var(--primary-gradient);
+  color: white;
+  padding: 16px 25px;
+  font-size: 14px;
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  border-radius: 15px;
+}
+
+button:contains("Tambah Data Baru"):hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+/* Edit Mode Input Styles */
+tbody input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #667eea;
+  border-radius: 10px;
+  font-size: 14px;
+  background: rgba(102, 126, 234, 0.05);
+  transition: var(--transition);
+  font-family: 'Inter', sans-serif;
+}
+
+tbody input:focus {
+  outline: none;
+  border-color: #764ba2;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+  transform: translateY(-2px);
+}
+
+/* === SUMMARY CARD === */
+p:contains("Total Jenis Bahan") {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  background: var(--accent-gradient);
+  padding: 20px 30px;
+  border-radius: 20px;
+  margin: 30px auto 0;
+  box-shadow: 0 10px 30px rgba(168, 237, 234, 0.3);
+  display: inline-block;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+p:contains("Total Jenis Bahan")::before {
+  content: '📊';
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (max-width: 1024px) {
+  .main-content {
+    margin: 20px;
+    padding: 30px;
+  }
+  
+  div > h1:first-child {
+    font-size: 36px;
+  }
+}
+
 @media (max-width: 768px) {
-    .login-box {
-        padding: 2rem;
-        margin: 0 15px;
-    }
-    .login-box h1 {
-        font-size: 1.8rem;
-    }
-    table {
-        width: 98%;
-        margin: 1rem auto;
-        font-size: 0.9rem;
-    }
-    th, td {
-        padding: 10px;
-    }
-    td input, tfoot input {
-        padding: 6px 8px;
-    }
-    button {
-        padding: 6px 10px;
-        margin-right: 5px;
-        font-size: 0.85rem;
-    }
-    tfoot button {
-        padding: 8px;
-    }
-
-    /* Responsiveness untuk navbar */
-    nav {
-        flex-direction: column; /* Ubah menjadi kolom di layar kecil */
-        align-items: center; /* Pusatkan item secara vertikal */
-        gap: 0.8rem; /* Kurangi jarak */
-        padding: 0 10px;
-    }
-
-    nav a {
-        width: 100%; /* Link mengisi lebar penuh */
-        text-align: center; /* Teks di tengah */
-        padding: 0.7rem 0; /* Padding vertikal lebih besar */
-        font-size: 1rem;
-    }
-
-    /* Dashboard responsiveness */
-    .dashboard-container {
-        padding: 1rem;
-    }
-    .dashboard-container h1 {
-        font-size: 2.5rem;
-    }
-    .dashboard-container p {
-        font-size: 1.2rem;
-    }
+  .login-box {
+    padding: 40px 30px;
+    margin: 20px;
+  }
+  
+  .login-box h1 {
+    font-size: 24px;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 40px;
+  }
+  
+  .main-content {
+    margin: 15px;
+    padding: 25px;
+  }
+  
+  div > h1:first-child {
+    font-size: 28px;
+    padding: 20px 15px;
+  }
+  
+  table {
+    font-size: 14px;
+  }
+  
+  thead th {
+    padding: 20px 15px;
+    font-size: 12px;
+  }
+  
+  tbody td, tfoot td {
+    padding: 15px;
+  }
+  
+  button {
+    padding: 10px 16px;
+    font-size: 12px;
+    margin: 2px;
+  }
 }
 
 @media (max-width: 480px) {
-    .login-box {
-        padding: 1.5rem;
-    }
-    .login-box h1 {
-        font-size: 1.5rem;
-    }
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-    thead tr {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-    }
-    tr { border: 1px solid #ccc; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
-    td {
-        border: none;
-        border-bottom: 1px solid #eee;
-        position: relative;
-        padding-left: 50%;
-        text-align: right;
-    }
-    td:before {
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 45%;
-        padding-right: 10px;
-        white-space: nowrap;
-        text-align: left;
-        font-weight: bold;
-    }
-    td:nth-of-type(1):before { content: "Nama Bahan:"; }
-    td:nth-of-type(2):before { content: "Stok:"; }
-    td:nth-of-type(3):before { content: "Satuan:"; }
-    td:nth-of-type(4):before { content: "Aksi:"; }
-
-    td:last-child {
-        border-bottom: none;
-    }
-    tfoot tr {
-        display: flex;
-        flex-wrap: wrap;
-        border: none;
-        margin-top: 20px;
-        padding: 0;
-    }
-    tfoot td {
-        width: 100%;
-        padding-left: 10px;
-        text-align: left;
-        margin-bottom: 10px;
-    }
-    tfoot button {
-        margin-top: 10px;
-    }
-
-    /* Dashboard responsiveness */
-    .dashboard-container h1 {
-        font-size: 2rem;
-    }
-    .dashboard-container p {
-        font-size: 1rem;
-    }
+  body::before,
+  body::after {
+    display: none;
+  }
+  
+  .login-container {
+    padding: 15px;
+  }
+  
+  .login-box {
+    padding: 30px 20px;
+  }
+  
+  .dashboard-container {
+    padding: 40px 15px;
+  }
+  
+  .dashboard-container h1 {
+    font-size: 28px;
+  }
+  
+  .main-content {
+    margin: 10px;
+    padding: 20px;
+  }
+  
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  button:contains("Tambah Data Baru") {
+    padding: 12px 16px;
+    font-size: 12px;
+  }
 }
 
-/* Catatan: Selector :contains() bukanlah CSS standar. */
-/* Untuk styling button berdasarkan teks, sangat disarankan untuk menambahkan class pada elemen HTML-nya. */
-/* Contoh: <button class="btn-save">Simpan</button> dan kemudian gunakan .btn-save di CSS. */
+/* === ADVANCED ANIMATIONS === */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+table {
+  animation: slideInUp 0.8s ease-out;
+}
+
+.login-box {
+  animation: fadeInScale 0.8s ease-out;
+}
+
+.dashboard-container > * {
+  animation: slideInUp 0.8s ease-out;
+}
+
+tbody tr {
+  animation: slideInRight 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+tbody tr:nth-child(1) { animation-delay: 0.1s; }
+tbody tr:nth-child(2) { animation-delay: 0.2s; }
+tbody tr:nth-child(3) { animation-delay: 0.3s; }
+tbody tr:nth-child(4) { animation-delay: 0.4s; }
+tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+/* === SCROLL BAR STYLING === */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-gradient);
+}
+
+/* === SELECTION STYLING === */
+::selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(102, 126, 234, 0.3);
+  color: white;
+}
