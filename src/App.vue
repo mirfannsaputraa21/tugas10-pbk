@@ -18,7 +18,7 @@ onMounted(() => {
       <div class="navbar-title">Gudang Rumah Makan Sederhana</div>
       
       <nav>
-        <RouterLink to="/dashboard">Beranda</RouterLink>
+        <router-link to="/dasboard"> beranda </router-link>
         <RouterLink to="/daftarbahan">Daftar Bahan</RouterLink>
         <a href="#" @click.prevent="authStore.logout()">Logout</a>
       </nav>
