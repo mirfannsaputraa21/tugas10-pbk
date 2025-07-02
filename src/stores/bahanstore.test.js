@@ -3,7 +3,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/bahan';
+const API_URL = 'https://irfan-json-server.glitch.me/bahan';
 
 export const useBahanStore = defineStore('bahan', {
   state: () => ({
