@@ -1,582 +1,556 @@
-/* ===== GLOBAL RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-*:focus {
-  outline: 2px solid rgb(57, 200, 85);
-  outline-offset: 2px;
-}
-
+/* General Body & HTML Styling */
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7f6;
+    color: #333;
 }
 
-/* ===== CSS VARIABLES ===== */
-:root {
-  --primary-color: rgb(57, 200, 85);
-  --primary-dark: rgb(45, 180, 70);
-  --primary-darker: rgb(35, 160, 60);
-  --text-color: #333;
-  --text-light: #555;
-  --text-muted: #7f8c8d;
-  --bg-color: #f5f5f5;
-  --white: #ffffff;
-  --shadow-light: 0 2px 10px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 5px 20px rgba(0, 0, 0, 0.1);
-  --shadow-heavy: 0 10px 30px rgba(57, 200, 85, 0.15);
-  --border-radius: 8px;
-  --border-radius-large: 20px;
-  --transition: all 0.3s ease;
-}
-
-/* ===== NAVBAR STYLES ===== */
-.navbar {
-  font-style: italic;
-  color: var(--white);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.4rem 7%;
-  background-color: var(--primary-color);
-  box-shadow: var(--shadow-light);
-}
-
-.navbar-nav a {
-  color: var(--white);
-  margin: 0 15px;
-  font-weight: 500;
-  transition: var(--transition);
-  position: relative;
-  text-decoration: none;
-}
-
-.navbar-nav a:hover {
-  color: #e0ffe0;
-  transform: translateY(-2px);
-}
-
-.navbar-nav a::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -5px;
-  left: 50%;
-  background-color: var(--white);
-  transition: var(--transition);
-  transform: translateX(-50%);
-}
-
-.navbar-nav a:hover::after {
-  width: 100%;
-}
-
-.navbar-nav button {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: var(--white);
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.navbar-nav button:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* ===== MAIN CONTENT ===== */
-main {
-  min-height: calc(100vh - 80px);
-  padding: 2rem;
-}
-
-/* ===== FORM STYLES ===== */
-form {
-  max-width: 500px;
-  margin: 2rem auto;
-  background: var(--white);
-  padding: 2rem;
-  border-radius: var(--border-radius-large);
-  box-shadow: var(--shadow-medium);
-  animation: slideUp 0.6s ease-out;
-}
-
-/* Form Title */
-h2 {
-  text-align: center;
-  color: var(--primary-color);
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-/* Form Groups */
-form > div {
-  margin-bottom: 1.5rem;
-}
-
-/* Labels */
-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-  font-weight: 500;
-  font-size: 0.95rem;
-}
-
-/* Input Fields */
-input, select {
-  width: 100%;
-  padding: 12px 15px;
-  border: 2px solid #e0e0e0;
-  border-radius: var(--border-radius);
-  font-size: 1rem;
-  transition: var(--transition);
-  background-color: #fafafa;
-}
-
-input:focus, select:focus {
-  border-color: var(--primary-color);
-  background-color: var(--white);
-  box-shadow: 0 0 0 3px rgba(57, 200, 85, 0.1);
-  transform: translateY(-2px);
-}
-
-/* Select Dropdown */
-select {
-  cursor: pointer;
-}
-
-/* Number Input */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Submit Button */
-button[type="submit"] {
-  width: 100%;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  color: var(--white);
-  padding: 15px;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-button[type="submit"]:hover {
-  background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker));
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(57, 200, 85, 0.3);
-}
-
-button[type="submit"]:active {
-  transform: translateY(-1px);
-}
-
-/* ===== ORDER SUMMARY ===== */
-/* Updated selector to work with divs containing h3 */
-div h3 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-/* Target the parent div of h3 */
-h3 {
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
-
-/* Order summary container - targeting div that contains h3 */
-main > div:last-child {
-  max-width: 500px;
-  margin: 2rem auto 0;
-  background: linear-gradient(135deg, var(--white), #f8f9fa);
-  padding: 2rem;
-  border-radius: var(--border-radius-large);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-  border-left: 5px solid var(--primary-color);
-  animation: fadeIn 0.8s ease-out;
-}
-
-/* Summary paragraphs */
-main > div:last-child p {
-  margin-bottom: 0.8rem;
-  font-size: 1rem;
-  color: var(--text-light);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-main > div:last-child p:last-child {
-  border-bottom: none;
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-/* ===== HOME PAGE STYLES ===== */
-.home {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 3rem 2rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
-  min-height: calc(100vh - 100px);
-}
-
-.home h4 {
-  text-align: center;
-  background: linear-gradient(135deg, var(--primary-color), #2d8f47);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 2.8rem;
-  font-weight: 800;
-  margin-bottom: 4rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-}
-
-.home h4::before {
-  content: '🍽️';
-  position: absolute;
-  left: -60px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-}
-
-.home h4::after {
-  content: '🍽️';
-  position: absolute;
-  right: -60px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-}
-
-/* ===== MENU STYLES ===== */
-.menu-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.menu-item {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: var(--border-radius-large);
-  padding: 2rem;
-  box-shadow: var(--shadow-heavy);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  border: 2px solid rgba(57, 200, 85, 0.1);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  animation: slideInLeft 0.8s ease-out forwards;
-  opacity: 0;
-}
-
-.menu-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--primary-color), #2d8f47);
-  transform: scaleY(0);
-  transition: transform 0.3s ease;
-  transform-origin: bottom;
-}
-
-.menu-item:hover::before {
-  transform: scaleY(1);
-}
-
-.menu-item:hover {
-  transform: translateX(10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(57, 200, 85, 0.25);
-  border-color: rgba(57, 200, 85, 0.3);
-  background: rgba(255, 255, 255, 0.95);
-}
-
-.menu-item .menu-content {
-  flex: 1;
-}
-
-.menu-item h5 {
-  color: #2c3e50;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  line-height: 1.2;
-  text-transform: capitalize;
-}
-
-.menu-item p {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.5;
-  margin-bottom: 0;
-  font-style: italic;
-}
-
-.harga {
-  background: linear-gradient(135deg, var(--primary-color), #2d8f47);
-  color: var(--white) !important;
-  font-size: 1.4rem !important;
-  font-weight: 800 !important;
-  margin-bottom: 0 !important;
-  padding: 1rem 1.5rem;
-  border-radius: 15px;
-  text-align: center;
-  min-width: 140px;
-  box-shadow: 0 5px 15px rgba(57, 200, 85, 0.3);
-  position: relative;
-  transition: var(--transition);
-}
-
-.harga::before {
-  content: 'Rp';
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-right: 5px;
-}
-
-.menu-item:hover .harga {
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(57, 200, 85, 0.4);
-}
-
-/* Menu item animation delays */
-.menu-item:nth-child(1) { animation-delay: 0.1s; }
-.menu-item:nth-child(2) { animation-delay: 0.2s; }
-.menu-item:nth-child(3) { animation-delay: 0.3s; }
-.menu-item:nth-child(4) { animation-delay: 0.4s; }
-.menu-item:nth-child(5) { animation-delay: 0.5s; }
-
-/* ===== WHATSAPP BUTTON ===== */
-a[href*="wa.me"] {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(45deg, #25D366, #128C7E);
-  color: var(--white);
-  text-decoration: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-a[href*="wa.me"]::before {
-  content: "";
-  width: 20px;
-  height: 20px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-size: contain;
-  flex-shrink: 0;
-}
-
-a[href*="wa.me"]:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
-  background: linear-gradient(45deg, #128C7E, #25D366);
-}
-
-a[href*="wa.me"]:active {
-  transform: translateY(-1px);
-}
-
-a[href*="wa.me"]::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s;
-}
-
-a[href*="wa.me"]:hover::after {
-  left: 100%;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-100px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* ===== RESPONSIVE DESIGN ===== */
-@media (max-width: 768px) {
-  .navbar-nav {
-    flex-direction: column;
-    padding: 1rem;
+h1 {
     text-align: center;
-  }
-  
-  .navbar-nav a {
-    margin: 5px 0;
-  }
-  
-  main {
-    padding: 1rem;
-  }
-  
-  form, main > div:last-child {
-    margin: 1rem auto;
-    padding: 1.5rem;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-  }
-  
-  .home {
-    padding: 2rem 1rem;
-  }
-  
-  .home h4 {
-    font-size: 2rem;
-    margin-bottom: 3rem;
-  }
-  
-  .home h4::before,
-  .home h4::after {
-    display: none;
-  }
-  
-  .menu-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
-  }
-  
-  .menu-item h5 {
-    font-size: 1.3rem;
-  }
-  
-  .harga {
-    font-size: 1.3rem !important;
-    min-width: auto;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    padding-top: 1.5rem;
+}
+
+/* --- Login Component Styles --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative; /* Penting untuk overlay */
+    overflow: hidden;   /* Pastikan tidak ada scrollbar tak terduga */
+
+    /* --- PILIHAN KUSTOMISASI BACKGROUND LOGIN --- */
+
+    /* OPSI 1: Background Gambar (Paling Sering Digunakan) */
+    /* Ganti URL gambar di bawah dengan gambar Anda sendiri (lokal atau online langsung). */
+    /* Contoh gambar lokal, sesuaikan jalur jika folder gambar Anda berbeda */
+    background-image: url('../assets/image/4ed76e082f55f3dbedfcc298a4022276.png'); /* Contoh gambar yang Anda berikan */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Gambar tetap di tempat saat scroll */
+
+    /* OPSI 2: Background Gradien (Uncomment jika ingin menggunakan ini) */
+    /*
+    background: linear-gradient(135deg, #1abc9c 0%, #2ecc71 100%);
+    */
+
+    /* OPSI 3: Background Pola (Uncomment jika ingin menggunakan ini) */
+    /*
+    background-image: url('https://www.transparenttextures.com/patterns/clean-textile.png');
+    background-repeat: repeat;
+    background-color: #f0f2f5;
+    */
+}
+
+/* Overlay (Opsional): Untuk membuat teks/kotak login lebih mudah dibaca di atas gambar yang ramai */
+/* Uncomment blok ini jika Anda menggunakan gambar dan perlu meningkatkan kontras */
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Lapisan gelap transparan */
+    z-index: 1; /* Pastikan overlay di bawah konten login-box */
+}
+
+.login-box {
+    background: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     width: 100%;
-  }
-  
-  a[href*="wa.me"] {
-    padding: 10px 16px;
-    font-size: 14px;
-  }
-  
-  a[href*="wa.me"]::before {
-    width: 16px;
-    height: 16px;
-  }
+    max-width: 420px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    position: relative; /* Penting agar z-index bekerja dengan benar */
+    z-index: 2; /* Pastikan di atas overlay */
+}
+
+.login-box:hover {
+    transform: translateY(-5px);
+}
+
+.login-box h1 {
+    color: #34495e;
+    margin-bottom: 1rem; /* Kurangi margin bawah */
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+.login-box p {
+    color: #666; /* Warna abu-abu untuk teks informasi */
+    margin-bottom: 0.5rem; /* Kurangi jarak antar paragraf */
+    font-size: 0.9rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    color: #555;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 1rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="password"]:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+.login-box button[type="submit"] {
+    width: 100%;
+    padding: 1.2rem;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.login-box button[type="submit"]:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+.login-box button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+
+/* --- Table (Daftar Bahan) Styles --- */
+table {
+    width: 90%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners apply to content */
+}
+
+th, td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+thead th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f8ff;
+    transition: background-color 0.2s ease;
+}
+
+td input[type="text"],
+td input[type="number"],
+tfoot input[type="text"],
+tfoot input[type="number"] {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+td input:focus,
+tfoot input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    outline: none;
+}
+
+button {
+    padding: 8px 15px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:last-child {
+    margin-right: 0;
+}
+
+/* Specific button styles */
+button:not([type="submit"]) { /* Apply to all buttons except login submit */
+    background-color: #4CAF50; /* Default for action buttons */
+    color: white;
+}
+
+button:not([type="submit"]):hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+}
+
+/* Edit button */
+button[data-action="edit"] { /* You might need to add a data-action attribute in template */
+    background-color: #007bff;
+}
+button[data-action="edit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Save button */
+/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-save">Simpan</button> */
+.btn-save {
+    background-color: #28a745;
+}
+.btn-save:hover {
+    background-color: #218838;
+}
+
+/* Cancel button */
+/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-cancel">Batal</button> */
+.btn-cancel {
+    background-color: #6c757d;
+}
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* Delete button */
+/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-delete">Hapus</button> */
+.btn-delete {
+    background-color: #dc3545;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* Add New Bahan button */
+/* Ini bukan selector CSS standar. Anda harus menambahkan class di template, contoh: <button class="btn-add">Tambah Data Baru</button> */
+.btn-add {
+    background-color: #007bff;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 1rem;
+    margin-right: 0; /* Remove right margin for full width */
+}
+.btn-add:hover {
+    background-color: #0056b3;
+}
+
+
+p {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Loading state */
+div[v-if="bahanStore.isLoading"] { /* Perhatikan: ini adalah selector atribut Vue, bukan class CSS murni */
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* --- App.vue Navbar Styles --- */
+header {
+    background-color: #2c3e50; /* Warna latar belakang gelap untuk header */
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sedikit bayangan untuk efek mengangkat */
+}
+
+/* Kontainer untuk judul dan nav */
+.navbar-content {
+    display: flex; /* Menggunakan Flexbox */
+    justify-content: space-between; /* Judul di kiri, nav di kanan (atau tengah tergantung nav) */
+    align-items: center; /* Pusatkan item secara vertikal */
+    max-width: 1200px; /* Batasi lebar */
+    margin: 0 auto; /* Pusatkan di halaman */
+    padding: 0 20px; /* Padding samping */
+}
+
+/* Gaya untuk judul di navbar */
+.navbar-title {
+    color: #ecf0f1; /* Warna teks putih keabu-abuan */
+    font-size: 1.5rem; /* Ukuran font lebih besar */
+    font-weight: 600; /* Tebal */
+    letter-spacing: 0.8px;
+    white-space: nowrap; /* Pastikan teks tidak patah baris */
+    margin-right: 2rem; /* Jarak dari nav */
+}
+
+nav {
+    display: flex; /* Menggunakan Flexbox untuk tata letak horizontal */
+    /* justify-content: center; <-- Hapus atau ubah ini jika nav punya lebar penuh */
+    gap: 2.5rem; /* Jarak antar link */
+    /* max-width: 1200px; <-- Hapus ini jika nav berada dalam navbar-content */
+    /* margin: 0 auto; <-- Hapus ini */
+    /* padding: 0 20px; <-- Hapus ini karena sudah ada di navbar-content */
+}
+
+/* Styling untuk RouterLink dan tag <a> (Logout link) */
+nav a {
+    color: #ecf0f1; /* Warna teks putih keabu-abuan */
+    text-decoration: none; /* Hapus garis bawah default */
+    font-size: 1.1rem; /* Ukuran font */
+    font-weight: 500; /* Ketebalan font */
+    padding: 0.5rem 1rem; /* Padding di sekitar teks link */
+    border-radius: 6px; /* Sudut membulat */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease; /* Transisi halus */
+}
+
+/* Efek saat link di-hover atau aktif */
+nav a:hover,
+nav a.router-link-active { /* router-link-active adalah class yang ditambahkan Vue Router */
+    background-color: #3498db; /* Warna latar belakang saat di-hover/aktif */
+    color: white; /* Warna teks putih */
+    transform: translateY(-2px); /* Efek sedikit terangkat */
+}
+
+nav a.router-link-exact-active { /* router-link-exact-active untuk link yang sangat cocok */
+    background-color: #2980b9; /* Warna latar belakang untuk link aktif yang tepat */
+    color: white;
+    font-weight: 600; /* Lebih tebal untuk link yang sangat aktif */
+}
+
+/* --- Dasboard Component Styles --- */
+.dashboard-container {
+    min-height: calc(100vh - 80px); /* Mengisi sebagian besar tinggi viewport, disesuaikan agar tidak tumpang tindih dengan navbar */
+    display: flex;
+    flex-direction: column; /* Konten diatur secara vertikal */
+    justify-content: center; /* Pusatkan konten vertikal */
+    align-items: center; /* Pusatkan konten horizontal */
+    text-align: center;
+    padding: 2rem;
+    color: #fff; /* Warna teks putih agar kontras dengan latar belakang gelap */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Bayangan teks agar lebih mudah dibaca */
+    position: relative; /* Penting untuk overlay */
+    overflow: hidden; /* Pastikan tidak ada scrollbar tak terduga dari gambar */
+
+
+    /* --- PILIHAN KUSTOMISASI BACKGROUND --- */
+
+    /* OPSI 1: Background Gambar (Paling Sering Digunakan) */
+    /* Ganti URL gambar di bawah dengan gambar Anda sendiri. */
+    /* Anda bisa menaruh gambar di folder src/assets/images/ */
+    background-image: url('../assets/image/4ed76e082f55f3dbedfcc298a4022276.png');
+    background-size: cover; /* Memastikan gambar menutupi seluruh area container */
+    background-position: center; /* Pusatkan gambar */
+    background-repeat: no-repeat; /* Gambar tidak diulang */
+    background-attachment: fixed; /* Gambar tetap di tempat saat halaman di-scroll */
+
+    /* OPSI 2: Background Gradien (Uncomment jika ingin menggunakan ini) */
+    /*
+    background: linear-gradient(135deg, #4CAF50 0%, #218838 100%);
+    */
+
+    /* OPSI 3: Background Pola (Uncomment jika ingin menggunakan ini) */
+    /* Anda bisa mencari pola gratis di transparenttextures.com atau thepatternlibrary.com */
+    /*
+    background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
+    background-repeat: repeat;
+    background-color: #f0f2f5;
+    */
+}
+
+/* Overlay (Opsional): Untuk membuat teks lebih mudah dibaca di atas gambar yang ramai */
+/* Uncomment blok ini jika Anda menggunakan gambar dan teks sulit dibaca */
+.dashboard-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Lapisan gelap transparan */
+    z-index: 1; /* Pastikan overlay di bawah konten */
+}
+.dashboard-container > * { /* Targetkan elemen anak langsung agar berada di atas overlay */
+    position: relative;
+    z-index: 2;
+}
+
+
+.dashboard-container h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    color: #fff; /* Pastikan H1 juga berwarna putih */
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+}
+
+.dashboard-container p {
+    font-size: 1.5rem;
+    max-width: 800px;
+    line-height: 1.6;
+    color: #f0f0f0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .login-box {
+        padding: 2rem;
+        margin: 0 15px;
+    }
+    .login-box h1 {
+        font-size: 1.8rem;
+    }
+    table {
+        width: 98%;
+        margin: 1rem auto;
+        font-size: 0.9rem;
+    }
+    th, td {
+        padding: 10px;
+    }
+    td input, tfoot input {
+        padding: 6px 8px;
+    }
+    button {
+        padding: 6px 10px;
+        margin-right: 5px;
+        font-size: 0.85rem;
+    }
+    tfoot button {
+        padding: 8px;
+    }
+
+    /* Responsiveness untuk navbar */
+    nav {
+        flex-direction: column; /* Ubah menjadi kolom di layar kecil */
+        align-items: center; /* Pusatkan item secara vertikal */
+        gap: 0.8rem; /* Kurangi jarak */
+        padding: 0 10px;
+    }
+
+    nav a {
+        width: 100%; /* Link mengisi lebar penuh */
+        text-align: center; /* Teks di tengah */
+        padding: 0.7rem 0; /* Padding vertikal lebih besar */
+        font-size: 1rem;
+    }
+
+    /* Dashboard responsiveness */
+    .dashboard-container {
+        padding: 1rem;
+    }
+    .dashboard-container h1 {
+        font-size: 2.5rem;
+    }
+    .dashboard-container p {
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
-  form, main > div:last-child {
-    padding: 1rem;
-  }
-  
-  input, select, button[type="submit"] {
-    padding: 10px 12px;
-  }
-  
-  .home {
-    padding: 1.5rem 1rem;
-  }
-  
-  .home h4 {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-  }
-  
-  .menu-item {
-    padding: 1.5rem;
-  }
-  
-  .menu-item h5 {
-    font-size: 1.2rem;
-  }
-  
-  .menu-item p {
-    font-size: 0.9rem;
-  }
-  
-  .harga {
-    font-size: 1.2rem !important;
-    padding: 0.8rem 1.2rem;
-  }
+    .login-box {
+        padding: 1.5rem;
+    }
+    .login-box h1 {
+        font-size: 1.5rem;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    tr { border: 1px solid #ccc; margin-bottom: 15px; border-radius: 8px; overflow: hidden; }
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+    td:nth-of-type(1):before { content: "Nama Bahan:"; }
+    td:nth-of-type(2):before { content: "Stok:"; }
+    td:nth-of-type(3):before { content: "Satuan:"; }
+    td:nth-of-type(4):before { content: "Aksi:"; }
+
+    td:last-child {
+        border-bottom: none;
+    }
+    tfoot tr {
+        display: flex;
+        flex-wrap: wrap;
+        border: none;
+        margin-top: 20px;
+        padding: 0;
+    }
+    tfoot td {
+        width: 100%;
+        padding-left: 10px;
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    tfoot button {
+        margin-top: 10px;
+    }
+
+    /* Dashboard responsiveness */
+    .dashboard-container h1 {
+        font-size: 2rem;
+    }
+    .dashboard-container p {
+        font-size: 1rem;
+    }
 }
-/* fix sampai sini dulu  */
+
+/* Catatan: Selector :contains() bukanlah CSS standar. */
+/* Untuk styling button berdasarkan teks, sangat disarankan untuk menambahkan class pada elemen HTML-nya. */
+/* Contoh: <button class="btn-save">Simpan</button> dan kemudian gunakan .btn-save di CSS. */

@@ -1,42 +1,31 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
-import '../src/stylecss/style.css'
-const router = useRouter()
-const isAuthenticated = ref(false)
+import { RouterLink, RouterView } from 'vue-router'
+import { useAuthStore } from './stores/authStore'; // 1. Import store autentikasi
+import { onMounted } from 'vue';
 
+// 2. Inisialisasi store
+const authStore = useAuthStore();
+
+// 3. Cek status login setiap kali aplikasi dimuat ulang
 onMounted(() => {
-  isAuthenticated.value = localStorage.getItem('isAuthenticated') === 'true'
-})
-
-function logout() {
-  localStorage.removeItem('isAuthenticated')
-  isAuthenticated.value = false
-  router.push('/login')
-}
+  authStore.checkLoginStatus();
+});
 </script>
 
 <template>
-  <div id="app">
-      <nav class="navbar-nav">
-        <div class="navbar">
-        <h1>PEMESANAN MAKANAN RUMAH MAKAN RAKYAT</h1>
-
-      </div>
-        <RouterLink to="/">HOME</RouterLink>
-        <RouterLink to="/contact">CONTACT</RouterLink>
-        <RouterLink to="/pemesanan">PESANAN</RouterLink>
-        <RouterLink v-if="!isAuthenticated" to="/login">LOGIN</RouterLink>
-        <button v-if="isAuthenticated" @click="logout">Logout</button>
+  <header v-if="authStore.isLoggedIn">
+    <div class="navbar-content">
+      <div class="navbar-title">Gudang Rumah Makan Sederhana</div>
+      
+      <nav>
+        <RouterLink to="/dasboard">Beranda</RouterLink>
+        <RouterLink to="/daftarbahan">Daftar Bahan</RouterLink>
+        <a href="#" @click.prevent="authStore.logout()">Logout</a>
       </nav>
-     
- 
-    <main>
-      <router-view />
-    </main>
-  </div>
+    </div>
+  </header>
+
+  <main>
+    <RouterView />
+  </main>
 </template>
-
-<style scoped>
-
-</style>

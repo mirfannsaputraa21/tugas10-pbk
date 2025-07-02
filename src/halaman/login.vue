@@ -1,37 +1,40 @@
-  <template>
-    <div class="login-container">
-      <h2>Login</h2>
+<script setup>
+import { ref } from 'vue';
+import { useAuthStore } from '../stores/authStore';
+
+const authStore = useAuthStore();
+const username = ref('');
+const password = ref('');
+
+const handleLogin = () => {
+  if (!username.value || !password.value) {
+    alert('Username dan password harus diisi!');
+    return;
+  }
+  authStore.login({
+    username: username.value,
+    password: password.value,
+  });
+};
+</script>
+
+<template>
+  <div class="login-container">
+    <div class="login-box">
+      <h1> GUDANG RUMAH MAKAN SEDERHANA</h1>
+      <p>email:Muhammadirfansaputra@gmail.com </p>
+      <p>password :admin123 </p>
       <form @submit.prevent="handleLogin">
-        <div>
-          <label>Email:</label>
-          <input type="email" v-model="email" required />
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" v-model="username" />
         </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" v-model="password" required />
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="password" />
         </div>
         <button type="submit">Login</button>
-        <p v-if="error" class="error">{{ error }}</p>
       </form>
     </div>
-  </template>
-
-  <script setup>
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-
-  const email = ref('')
-  const password = ref('')
-  const error = ref('')
-  const router = useRouter()
-
-  function handleLogin() {
-    if (email.value === 'muhammadirfan@gmail.com' && password.value === 'coba123') {
-      localStorage.setItem('isAuthenticated', 'true')
-      router.push('/')  // Redirect ke home setelah login sukses
-    } else {
-      error.value = 'Email atau Password salah!'
-    }
-  }
-  </script>
-
+  </div>
+</template>
