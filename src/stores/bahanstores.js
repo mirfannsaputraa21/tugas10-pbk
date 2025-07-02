@@ -1,78 +1,47 @@
+// src/stores/authStore.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import router from '../router';
 
-// Definisikan URL API di satu tempat agar mudah diubah
-const API_URL = 'http://localhost:3000/bahan';
+// Ganti URL ini dengan URL My JSON Server Anda untuk koleksi 'users'
+const API_URL_USERS = 'https://my-json-server.typicode.com/<mirfannsaputraa21>/<tugas10-pbk>/users';
 
-export const useBahanStore = defineStore('bahan', {
+export const useAuthStore = defineStore('auth', {
   state: () => ({
-    bahan: [],
-    isLoading: false,
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+    user: JSON.parse(localStorage.getItem('user')) || null,
   }),
-
-  getters: {
-    totalJenisBahan: (state) => state.bahan.length,
-  },
-
   actions: {
-    /**
-     * READ: Mengambil semua data dari server
-     */
-    async fetchBahan() {
-      this.isLoading = true;
+    async login(credentials) {
       try {
-        const response = await axios.get(API_URL);
-        this.bahan = response.data;
-      } catch (error) {
-        console.error('Gagal mengambil data:', error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-
-    /**
-     * CREATE: Menambahkan data baru ke server
-     */
-    async tambahBahan(bahanBaru) {
-      try {
-        // Kirim data baru ke server
-        const response = await axios.post(API_URL, bahanBaru);
-        // Tambahkan data balasan dari server ke state lokal agar UI update
-        this.bahan.push(response.data);
-      } catch (error) {
-        console.error('Gagal menambah data:', error);
-      }
-    },
-
-    /**
-     * UPDATE: Mengedit data yang ada di server
-     */
-    async updateBahan(bahanDiupdate) {
-      try {
-        // Kirim data yang sudah diubah ke server berdasarkan ID
-        const response = await axios.put(`${API_URL}/${bahanDiupdate.id}`, bahanDiupdate);
-        // Cari data lama di state dan ganti dengan data baru
-        const index = this.bahan.findIndex(b => b.id === bahanDiupdate.id);
-        if (index !== -1) {
-          this.bahan[index] = response.data;
+        // Gunakan API_URL_USERS yang baru
+        const response = await axios.get(`${API_URL_USERS}?username=${credentials.username}&password=${credentials.password}`);
+        
+        if (response.data.length > 0) {
+          const user = response.data[0];
+          this.user = user;
+          this.isLoggedIn = true;
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('user', JSON.stringify(user));
+          router.push('/');
+        } else {
+          alert('Username atau password salah!');
         }
       } catch (error) {
-        console.error('Gagal mengupdate data:', error);
+        console.error('Gagal melakukan login:', error);
+        alert('Terjadi kesalahan saat login.');
       }
     },
-
-    /**
-     * DELETE: Menghapus data dari server
-     */
-    async hapusBahan(id) {
-      try {
-        // Kirim perintah hapus ke server berdasarkan ID
-        await axios.delete(`${API_URL}/${id}`);
-        // Hapus data dari state lokal agar UI update
-        this.bahan = this.bahan.filter(b => b.id !== id);
-      } catch (error) {
-        console.error('Gagal menghapus data:', error);
-      }
+    logout() {
+      this.user = null;
+      this.isLoggedIn = false;
+      localStorage.removeItem('isLoggedIn');
+      localStorage.removeItem('user');
+      router.push('/login');
     },
+    checkLoginStatus() {
+        this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        this.user = JSON.parse(localStorage.getItem('user')) || null;
+    }
   },
 });
