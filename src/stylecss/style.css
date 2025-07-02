@@ -30,7 +30,7 @@ body {
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   min-height: 100vh;
-  color: #333;
+  color: #333; /* Ini mungkin perlu diubah jika ada teks default yang tidak memiliki warna yang kontras di latar belakang gelap */
   overflow-x: hidden;
 }
 
@@ -88,7 +88,7 @@ body::after {
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
     radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
@@ -298,6 +298,7 @@ body::after {
 }
 
 /* === MAIN TITLE === */
+/* Tidak perlu diubah karena sudah menggunakan selector standar */
 div > h1:first-child {
   background: var(--primary-gradient);
   -webkit-background-clip: text;
@@ -324,8 +325,8 @@ div > h1:first-child::after {
   border-radius: 2px;
 }
 
-/* Loading State */
-div > div:contains("Memuat") {
+/* Loading State (UPDATED: Menggunakan class `.loading-state`) */
+.loading-state {
   text-align: center;
   padding: 60px;
   font-size: 18px;
@@ -334,7 +335,7 @@ div > div:contains("Memuat") {
   position: relative;
 }
 
-div > div:contains("Memuat")::after {
+.loading-state::after {
   content: '';
   width: 40px;
   height: 40px;
@@ -477,7 +478,7 @@ tfoot input::placeholder {
   font-weight: 400;
 }
 
-/* === MODERN BUTTON STYLES === */
+/* === MODERN BUTTON STYLES (UPDATED: Menggunakan class) === */
 button {
   padding: 12px 20px;
   border: none;
@@ -510,59 +511,59 @@ button:hover::before {
 }
 
 /* Edit Button */
-button:contains("Edit"), 
-tbody button:first-child {
+.btn-edit, /* Selector diubah */
+tbody .btn-edit { /* Juga perbarui jika ada tombol edit di dalam tbody */
   background: var(--warning-gradient);
   color: white;
   box-shadow: 0 6px 20px rgba(253, 203, 110, 0.3);
 }
 
-button:contains("Edit"):hover,
-tbody button:first-child:hover {
+.btn-edit:hover,
+tbody .btn-edit:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(253, 203, 110, 0.4);
 }
 
 /* Delete Button */
-button:contains("Hapus"),
-tbody button:last-child {
+.btn-delete, /* Selector diubah */
+tbody .btn-delete { /* Juga perbarui jika ada tombol delete di dalam tbody */
   background: var(--danger-gradient);
   color: white;
   box-shadow: 0 6px 20px rgba(252, 70, 107, 0.3);
 }
 
-button:contains("Hapus"):hover,
-tbody button:last-child:hover {
+.btn-delete:hover,
+tbody .btn-delete:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(252, 70, 107, 0.4);
 }
 
 /* Save Button */
-button:contains("Simpan") {
+.btn-save { /* Selector diubah */
   background: var(--success-gradient);
   color: white;
   box-shadow: 0 6px 20px rgba(17, 153, 142, 0.3);
 }
 
-button:contains("Simpan"):hover {
+.btn-save:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(17, 153, 142, 0.4);
 }
 
 /* Cancel Button */
-button:contains("Batal") {
+.btn-cancel { /* Selector diubah */
   background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
   color: white;
   box-shadow: 0 6px 20px rgba(149, 165, 166, 0.3);
 }
 
-button:contains("Batal"):hover {
+.btn-cancel:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 30px rgba(149, 165, 166, 0.4);
 }
 
 /* Add New Button */
-button:contains("Tambah Data Baru") {
+.btn-add-new { /* Selector diubah */
   background: var(--primary-gradient);
   color: white;
   padding: 16px 25px;
@@ -571,7 +572,7 @@ button:contains("Tambah Data Baru") {
   border-radius: 15px;
 }
 
-button:contains("Tambah Data Baru"):hover {
+.btn-add-new:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
 }
@@ -596,8 +597,8 @@ tbody input:focus {
   transform: translateY(-2px);
 }
 
-/* === SUMMARY CARD === */
-p:contains("Total Jenis Bahan") {
+/* === SUMMARY CARD (UPDATED: Menggunakan class `.summary-card`) === */
+.summary-card {
   text-align: center;
   font-size: 18px;
   font-weight: 700;
@@ -616,7 +617,7 @@ p:contains("Total Jenis Bahan") {
   overflow: hidden;
 }
 
-p:contains("Total Jenis Bahan")::before {
+.summary-card::before {
   content: '📊';
   margin-right: 10px;
   font-size: 20px;
@@ -628,7 +629,7 @@ p:contains("Total Jenis Bahan")::before {
     margin: 20px;
     padding: 30px;
   }
-  
+
   div > h1:first-child {
     font-size: 36px;
   }
@@ -639,38 +640,38 @@ p:contains("Total Jenis Bahan")::before {
     padding: 40px 30px;
     margin: 20px;
   }
-  
+
   .login-box h1 {
     font-size: 24px;
   }
-  
+
   .dashboard-container h1 {
     font-size: 40px;
   }
-  
+
   .main-content {
     margin: 15px;
     padding: 25px;
   }
-  
+
   div > h1:first-child {
     font-size: 28px;
     padding: 20px 15px;
   }
-  
+
   table {
     font-size: 14px;
   }
-  
+
   thead th {
     padding: 20px 15px;
     font-size: 12px;
   }
-  
+
   tbody td, tfoot td {
     padding: 15px;
   }
-  
+
   button {
     padding: 10px 16px;
     font-size: 12px;
@@ -683,35 +684,35 @@ p:contains("Total Jenis Bahan")::before {
   body::after {
     display: none;
   }
-  
+
   .login-container {
     padding: 15px;
   }
-  
+
   .login-box {
     padding: 30px 20px;
   }
-  
+
   .dashboard-container {
     padding: 40px 15px;
   }
-  
+
   .dashboard-container h1 {
     font-size: 28px;
   }
-  
+
   .main-content {
     margin: 10px;
     padding: 20px;
   }
-  
+
   table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
-  
-  button:contains("Tambah Data Baru") {
+
+  .btn-add-new { /* Selector diubah */
     padding: 12px 16px;
     font-size: 12px;
   }
