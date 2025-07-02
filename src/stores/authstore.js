@@ -13,8 +13,8 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials) {
       try {
         // Cari user berdasarkan username & password
-        const response = await axios.get(`https://irfan-json-server.glitch.me/users?username=${credentials.username}&password=${credentials.password}
-`);
+const response = await axios.get(`https://irfan-json-server.glitch.me/users?username=${credentials.username}&password=${credentials.password}`);
+
         
         if (response.data.length > 0) {
           // Jika user ditemukan
