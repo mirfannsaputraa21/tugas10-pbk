@@ -1,12 +1,12 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import { useAuthStore } from './stores/authstore'; // 1. Import store autentikasi
+import { useAuthStore } from './stores/authstore'; // 1. Impor store autentikasi
 import { onMounted } from 'vue';
 
 // 2. Inisialisasi store
 const authStore = useAuthStore();
 
-// 3. Cek status login setiap kali aplikasi dimuat ulang
+// 3. Periksa status login setiap kali aplikasi dimuat ulang
 onMounted(() => {
   authStore.checkLoginStatus();
 });
@@ -18,7 +18,7 @@ onMounted(() => {
       <div class="navbar-title">Gudang Rumah Makan Sederhana</div>
       
       <nav>
-        <RouterLink to="/dasboard">Beranda</RouterLink>
+        <RouterLink to="/dashboard">Beranda</RouterLink>
         <RouterLink to="/daftarbahan">Daftar Bahan</RouterLink>
         <a href="#" @click.prevent="authStore.logout()">Logout</a>
       </nav>
