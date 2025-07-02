@@ -1,47 +1,66 @@
-// src/stores/authStore.js
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import router from '../router';
 
-// Ganti URL ini dengan URL My JSON Server Anda untuk koleksi 'users'
-const API_URL_USERS = 'https://my-json-server.typicode.com/<mirfannsaputraa21>/<tugas10-pbk>/users';
+const API_URL = 'https://irfan-json-server.glitch.me/bahan';
 
-export const useAuthStore = defineStore('auth', {
+export const useBahanStore = defineStore('bahan', {
   state: () => ({
-    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
-    user: JSON.parse(localStorage.getItem('user')) || null,
+    bahan: [],
+    isLoading: false,
   }),
+  getters: {
+    totalJenisBahan: (state) => state.bahan.length,
+  },
   actions: {
-    async login(credentials) {
+    // 1. FETCH (GET) - Sudah ada
+    async fetchBahan() {
+      this.isLoading = true;
       try {
-        // Gunakan API_URL_USERS yang baru
-        const response = await axios.get(`${API_URL_USERS}?username=${credentials.username}&password=${credentials.password}`);
-        
-        if (response.data.length > 0) {
-          const user = response.data[0];
-          this.user = user;
-          this.isLoggedIn = true;
-          localStorage.setItem('isLoggedIn', 'true');
-          localStorage.setItem('user', JSON.stringify(user));
-          router.push('/');
-        } else {
-          alert('Username atau password salah!');
-        }
+        const response = await axios.get(API_URL);
+        this.bahan = response.data;
       } catch (error) {
-        console.error('Gagal melakukan login:', error);
-        alert('Terjadi kesalahan saat login.');
+        console.error('Gagal mengambil data:', error);
+      } finally {
+        this.isLoading = false;
       }
     },
-    logout() {
-      this.user = null;
-      this.isLoggedIn = false;
-      localStorage.removeItem('isLoggedIn');
-      localStorage.removeItem('user');
-      router.push('/login');
+
+    // 2. TAMBAH (POST) - Baru
+    async tambahBahan(bahanBaru) {
+      try {
+        const response = await axios.post(API_URL, bahanBaru);
+        // Tambahkan data baru ke state lokal agar UI langsung update
+        this.bahan.push(response.data);
+      } catch (error) {
+        console.error('Gagal menambah data:', error);
+      }
     },
-    checkLoginStatus() {
-        this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-        this.user = JSON.parse(localStorage.getItem('user')) || null;
-    }
+
+    // 3. UPDATE (PUT) - Baru
+    async updateBahan(bahanDiupdate) {
+      try {
+        // Kirim permintaan PUT ke /bahan/:id
+        const response = await axios.put(`${API_URL}/${bahanDiupdate.id}`, bahanDiupdate);
+        // Cari index data lama di state dan ganti dengan data baru
+        const index = this.bahan.findIndex(b => b.id === bahanDiupdate.id);
+        if (index !== -1) {
+          this.bahan[index] = response.data;
+        }
+      } catch (error) {
+        console.error('Gagal mengupdate data:', error);
+      }
+    },
+
+    // 4. HAPUS (DELETE) - Baru
+    async hapusBahan(id) {
+      try {
+        // Kirim permintaan DELETE ke /bahan/:id
+        await axios.delete(`${API_URL}/${id}`);
+        // Hapus data dari state lokal berdasarkan id
+        this.bahan = this.bahan.filter(b => b.id !== id);
+      } catch (error) {
+        console.error('Gagal menghapus data:', error);
+      }
+    },
   },
 });
