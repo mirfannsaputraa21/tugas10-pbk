@@ -744,7 +744,7 @@ tbody input:focus {
   }
 
   thead th {
-    padding: 20px 15px;
+    padding: 0px;
     font-size: 12px;
   }
 
