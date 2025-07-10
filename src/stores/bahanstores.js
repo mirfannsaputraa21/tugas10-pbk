@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const API_URL = 'https://irfan-json-server.glitch.me/bahan';
+const API_URL = 'https://db-json-api-tau.vercel.app/bahan';
 
 export const useBahanStore = defineStore('bahan', {
   state: () => ({

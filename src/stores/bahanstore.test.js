@@ -3,7 +3,7 @@ import { setActivePinia, createPinia } from 'pinia';
 import { useBahanStore } from './bahanstores';
 import axios from 'axios';
 
-const API_URL = 'https://irfan-json-server.glitch.me/bahan'; // Definisi API_URL di file test juga
+const API_URL = 'https://db-json-api-tau.vercel.app/bahan'; // Definisi API_URL di file test juga
 
 vi.mock('axios', () => ({
   default: {
