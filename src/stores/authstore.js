@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials) {
       try {
         // Cari user berdasarkan username & password
-const response = await axios.get(`https://db-json-api-tau.vercel.app/users?username=${credentials.username}&password=${credentials.password}`);
+const response = await axios.get(`https://68733304c75558e273538faa.mockapi.io/users?username=${credentials.username}&password=${credentials.password}`);
 
         
         if (response.data.length > 0) {
