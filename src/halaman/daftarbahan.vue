@@ -1,21 +1,14 @@
+
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useBahanStore } from '../stores/bahanstores';
 
 const bahanStore = useBahanStore();
 
-// Variabel untuk melacak baris yang sedang diedit
 const editingId = ref(null);
+const editForm = ref({ id: '', nama: '', stok: 0, satuan: '' });
 
-// Variabel untuk menampung data form edit
-const editForm = ref({
-  id: '',
-  nama: '',
-  stok: 0,
-  satuan: ''
-});
-
-// Variabel untuk form tambah data baru
+// Form untuk menambah data baru, tidak perlu properti 'id'
 const addForm = ref({
   nama: '',
   stok: 0,
@@ -26,42 +19,36 @@ onMounted(() => {
   bahanStore.fetchBahan();
 });
 
-// Fungsi untuk masuk ke mode edit
 const startEdit = (bahan) => {
   editingId.value = bahan.id;
-  editForm.value = { ...bahan }; // Salin data ke form
+  editForm.value = { ...bahan };
 };
 
-// Fungsi untuk menyimpan perubahan (update)
-const saveEdit = () => {
-  bahanStore.updateBahan(editForm.value);
-  editingId.value = null; // Keluar dari mode edit
+const saveEdit = async () => {
+  await bahanStore.updateBahan(editForm.value);
+  editingId.value = null;
 };
 
-// Fungsi untuk batal edit
 const cancelEdit = () => {
   editingId.value = null;
 };
 
-// Fungsi untuk menambah data baru dengan ID berurutan
-const addNewBahan = () => {
+// FUNGSI YANG DIPERBAIKI
+const addNewBahan = async () => {
   if (!addForm.value.nama || !addForm.value.satuan) {
     alert('Nama bahan dan satuan tidak boleh kosong!');
     return;
   }
 
-  // 1. Cari ID tertinggi dari data yang sudah ada
-const maxId = bahanStore.bahan.reduce((max, bahan) => parseInt(bahan.id) > max ? parseInt(bahan.id) : max, 0);
-  // 2. Buat objek data baru dengan ID berikutnya
+  // Buat objek baru TANPA ID
   const bahanBaru = {
-    id: maxId + 1,
     nama: addForm.value.nama,
     stok: parseInt(addForm.value.stok) || 0,
     satuan: addForm.value.satuan,
   };
   
-  // 3. Panggil action dengan data yang sudah memiliki ID
-  bahanStore.tambahBahan(bahanBaru);
+  // Panggil action store. Backend akan membuat ID.
+  await bahanStore.tambahBahan(bahanBaru);
 
   // Kosongkan form setelah ditambah
   addForm.value = { nama: '', stok: 0, satuan: '' };
@@ -72,6 +59,11 @@ const maxId = bahanStore.bahan.reduce((max, bahan) => parseInt(bahan.id) > max ?
   <div>
     <h1>Daftar Bahan Makanan</h1>
     
+    <!-- Tampilkan pesan error jika ada -->
+    <div v-if="bahanStore.error" style="color: red; margin-bottom: 1rem;">
+      <strong>Error:</strong> {{ bahanStore.error }}
+    </div>
+
     <div v-if="bahanStore.isLoading">
       Memuat data...
     </div>
